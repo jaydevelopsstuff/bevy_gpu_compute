@@ -4,9 +4,8 @@ Demonstrates only the features from BevyGpuCompute necessary for collision detec
 use bevy::{
     DefaultPlugins,
     app::{App, AppExit, Startup, Update},
-    ecs::message::MessageWriter,
     log,
-    prelude::{IntoScheduleConfigs, Local, Query, Res, ResMut, Resource},
+    prelude::{IntoScheduleConfigs, MessageWriter, Local, Query, Res, ResMut, Resource},
 };
 use bevy_gpu_compute::prelude::*;
 mod visuals;

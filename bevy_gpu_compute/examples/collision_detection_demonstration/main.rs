@@ -5,9 +5,8 @@ Demonstrates all features of the BevyGpuCompute library
 use bevy::{
     DefaultPlugins,
     app::{App, AppExit, PluginGroup, Startup, Update},
-    ecs::message::MessageWriter,
     log::{self, LogPlugin},
-    prelude::{IntoScheduleConfigs, Local, Query, Res, ResMut, Resource},
+    prelude::{IntoScheduleConfigs, MessageWriter, Local, Query, Res, ResMut, Resource},
 };
 use bevy_gpu_compute::prelude::*;
 mod visuals;
