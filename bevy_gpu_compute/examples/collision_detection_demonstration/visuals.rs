@@ -1,15 +1,17 @@
 use bevy::{
     asset::Handle,
+    camera::Projection,
     log,
-    prelude::{Color, Component, FromWorld, Resource, World},
-    sprite::ColorMaterial,
-    utils::hashbrown::HashMap,
+    platform::collections::HashMap,
+    prelude::{Color, ColorMaterial, Component, FromWorld, Resource, World},
 };
 use bevy::{
     asset::{Assets, RenderAssetUsages},
     math::{Vec2, Vec3, bounding::BoundingCircle},
-    prelude::{Camera2d, Commands, Mesh, Mesh2d, OrthographicProjection, Res, ResMut, Transform},
-    sprite::MeshMaterial2d,
+    prelude::{
+        Camera2d, Commands, Mesh, Mesh2d, MeshMaterial2d, OrthographicProjection, Res, ResMut,
+        Transform,
+    },
     utils::default,
 };
 
@@ -53,12 +55,12 @@ pub fn spawn_entities(
 pub fn spawn_camera(mut commands: Commands) {
     commands.spawn((
         Camera2d,
-        OrthographicProjection {
+        Projection::Orthographic(OrthographicProjection {
             near: -1000.0,
             far: 1000.0,
             scale: 0.1,
             ..OrthographicProjection::default_2d()
-        },
+        }),
         Transform::from_xyz(
             0., 0., 10.0, // 100.0,
         ),

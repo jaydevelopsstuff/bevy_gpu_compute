@@ -26,6 +26,13 @@ pub fn update_compute_pipeline(task: &mut BevyGpuComputeTask, render_device: &Re
             "pipeline layout {:?}",
             task.runtime_state().pipeline_layout()
         );
+
+        let pipeline_consts = task.get_pipeline_consts();
+        let constants_vec: Vec<(&str, f64)> = pipeline_consts
+            .iter()
+            .map(|(k, v)| (k.as_str(), *v))
+            .collect();
+
         let compute_pipeline = render_device.create_compute_pipeline(&ComputePipelineDescriptor {
             label: Some(task.name()),
             layout: Some(task.runtime_state().pipeline_layout()),
@@ -33,7 +40,7 @@ pub fn update_compute_pipeline(task: &mut BevyGpuComputeTask, render_device: &Re
             entry_point: Some(task.configuration().shader().entry_point_function_name()),
             // this is where we specify new values for pipeline constants...
             compilation_options: PipelineCompilationOptions {
-                constants: &task.get_pipeline_consts(),
+                constants: &constants_vec,
                 zero_initialize_workgroup_memory: Default::default(),
             },
             cache: None,

@@ -1,8 +1,9 @@
 use bevy::{
+    camera::Projection,
     log,
     prelude::{
-        Camera, Camera2d, Commands, Component, DespawnRecursiveExt, Entity, OrthographicProjection,
-        Query, Res, Transform,
+        Camera, Camera2d, Commands, Component, Entity, OrthographicProjection, Query, Res,
+        Transform,
     },
     time::Time,
 };
@@ -26,12 +27,12 @@ pub fn spawn_fallback_camera(
             );
             commands.spawn((
                 Camera2d,
-                OrthographicProjection {
+                Projection::Orthographic(OrthographicProjection {
                     near: -10.0,
                     far: 10.0,
                     scale: 1.,
                     ..OrthographicProjection::default_2d()
-                },
+                }),
                 Transform::from_xyz(
                     0., 0., 10.0, // 100.0,
                 ),
@@ -46,7 +47,7 @@ pub fn spawn_fallback_camera(
             let fallback_cam_len = fallback_cameras.iter().len();
             if fallback_cam_len > 0 {
                 fallback_cameras.iter().for_each(|(e, _)| {
-                    commands.entity(e).despawn_recursive();
+                    commands.entity(e).despawn();
                 });
             }
         }

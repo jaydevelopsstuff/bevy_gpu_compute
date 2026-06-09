@@ -1,6 +1,6 @@
 use bevy::{
     ecs::system::SystemParam,
-    prelude::{Commands, DespawnRecursiveExt, Entity, Query},
+    prelude::{Commands, Entity, Query},
 };
 
 use crate::task::lib::BevyGpuComputeTask;
@@ -20,6 +20,6 @@ impl BevyGpuComputeTaskDeleter<'_, '_> {
             .iter_mut()
             .find(|(_, task)| task.name() == name)
             .expect("Task not found");
-        self.commands.entity(entity).despawn_recursive();
+        self.commands.entity(entity).despawn();
     }
 }

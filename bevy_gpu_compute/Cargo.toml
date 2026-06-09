@@ -17,10 +17,10 @@ exclude = [
 [dependencies]
 bevy_gpu_compute_macro = { path = "../bevy_gpu_compute_macro", version = "0.1"}
 bevy_gpu_compute_core = { path = "../bevy_gpu_compute_core", version = "0.1"}
-bevy = "0.15"
+bevy = "0.18.1"
 futures = "0.3.31"
 pollster = "0.4.0"
-wgpu = "23.0.1"
+wgpu = "27"
 sysinfo = "0.33.0"
 bytemuck = {version = "1.21.0", features=["derive"]}
 

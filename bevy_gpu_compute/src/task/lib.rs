@@ -82,12 +82,14 @@ impl BevyGpuComputeTask {
             render_device,
             iteration_space,
             max_output_vector_lengths,
-            WgslCode::from_string(
-                name,
-                render_device,
-                full_module.wgsl_code(iteration_space.num_dimmensions()),
-                "main".to_string(),
-            ),
+            unsafe {
+                WgslCode::from_string(
+                    name,
+                    render_device,
+                    full_module.wgsl_code(iteration_space.num_dimmensions()),
+                    "main".to_string(),
+                )
+            },
         )
     }
 

@@ -18,7 +18,7 @@ pub fn get_gpu_output_as_bytes_vec(
     slice.map_async(wgpu::MapMode::Read, move |result| {
         sender.send(result).unwrap();
     });
-    render_device.poll(wgpu::Maintain::Wait);
+    let _ = render_device.poll(wgpu::PollType::wait_indefinitely());
 
     let result: Option<Vec<u8>> = if receiver.block_on().unwrap().is_ok() {
         let data = slice.get_mapped_range();

@@ -18,7 +18,7 @@ impl Default for WgslCode {
 }
 
 impl WgslCode {
-    pub fn from_string(
+    pub unsafe fn from_string(
         label: &str,
         render_device: &RenderDevice,
         wgsl_code: String,
@@ -33,7 +33,7 @@ impl WgslCode {
             })),
         }
     }
-    pub fn from_file(
+    pub unsafe fn from_file(
         label: &str,
         render_device: &RenderDevice,
         file_path: &str,

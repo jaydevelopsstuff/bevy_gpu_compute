@@ -1,6 +1,6 @@
 use bevy::{
     app::{App, Plugin, Startup, Update},
-    prelude::{AppExtStates, IntoSystemConfigs, States, in_state},
+    prelude::{AppExtStates, IntoScheduleConfigs, States, in_state},
 };
 
 use crate::{

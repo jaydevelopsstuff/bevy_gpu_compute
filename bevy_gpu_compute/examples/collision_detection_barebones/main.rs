@@ -4,8 +4,9 @@ Demonstrates only the features from BevyGpuCompute necessary for collision detec
 use bevy::{
     DefaultPlugins,
     app::{App, AppExit, Startup, Update},
+    ecs::message::MessageWriter,
     log,
-    prelude::{EventWriter, IntoSystemConfigs, Local, Query, Res, ResMut, Resource},
+    prelude::{IntoScheduleConfigs, Local, Query, Res, ResMut, Resource},
 };
 use bevy_gpu_compute::prelude::*;
 mod visuals;
@@ -152,12 +153,16 @@ fn handle_task_results(mut gpu_task_reader: GpuTaskReader, mut state: ResMut<Sta
 }
 
 // when the local variable "count" goes above a certain number (representing frame count), exit the app
-fn exit_and_show_results(mut count: Local<u32>, state: Res<State>, mut exit: EventWriter<AppExit>) {
+fn exit_and_show_results(
+    mut count: Local<u32>,
+    state: Res<State>,
+    mut exit: MessageWriter<AppExit>,
+) {
     if *count > EXIT_AFTER_FRAMES {
         let total_collisions = state.collisions_per_frame.iter().sum::<usize>();
         log::trace!("total collisions count at exit: {}", total_collisions);
         log::info!("Example completed successfully");
-        exit.send(AppExit::Success);
+        exit.write(AppExit::Success);
     }
     *count += 1;
 }
