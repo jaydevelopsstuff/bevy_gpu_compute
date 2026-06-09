@@ -27,10 +27,12 @@ impl WgslCode {
         Self {
             code: wgsl_code.clone(),
             entry_point_function_name,
-            shader_module: Some(render_device.create_shader_module(ShaderModuleDescriptor {
-                label: Some(label),
-                source: ShaderSource::Wgsl(wgsl_code.into()),
-            })),
+            shader_module: Some(unsafe {
+                render_device.create_shader_module(ShaderModuleDescriptor {
+                    label: Some(label),
+                    source: ShaderSource::Wgsl(wgsl_code.into()),
+                })
+            }),
         }
     }
     pub unsafe fn from_file(
@@ -40,7 +42,7 @@ impl WgslCode {
         entry_point_function_name: String,
     ) -> Self {
         let code = std::fs::read_to_string(file_path).unwrap();
-        Self::from_string(label, render_device, code, entry_point_function_name)
+        unsafe { Self::from_string(label, render_device, code, entry_point_function_name) }
     }
     pub fn code(&self) -> &str {
         &self.code
