@@ -82,6 +82,7 @@ impl BevyGpuComputeTask {
             render_device,
             iteration_space,
             max_output_vector_lengths,
+            // SAFETY: wgsl_shader_module is compiled and validated
             unsafe {
                 WgslCode::from_string(
                     name,
